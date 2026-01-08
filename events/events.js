@@ -56,8 +56,12 @@ const listener2 = () => console.log("Listener 2");
 
 emitter.on("removable-event", listener1);
 emitter.on("removable-event", listener2);
+emitter.on("another-event", () => console.log("Another Event"));
 
-setInterval(() => emitter.emit("removable-event"), 200);
+setInterval(() => {
+  emitter.emit("removable-event");
+  emitter.emit("another-event");
+}, 200);
 
-setTimeout(() => emitter.removeListener("removable-event", listener1), 500);
-setTimeout(() => emitter.removeListener("removable-event", listener2), 1100);
+setTimeout(() => emitter.removeAllListeners("removable-event"), 500);
+setTimeout(() => emitter.removeAllListeners(), 1100);
