@@ -50,18 +50,26 @@ emitter.emit("single-use"); // This will log the message
 emitter.emit("single-use");
 emitter.emit("single-use");
 
-console.log("---- Removing Listeners ----");
-const listener1 = () => console.log("Listener 1");
-const listener2 = () => console.log("Listener 2");
+// console.log("---- Removing Listeners ----");
+// const listener1 = () => console.log("Listener 1");
+// const listener2 = () => console.log("Listener 2");
 
-emitter.on("removable-event", listener1);
-emitter.on("removable-event", listener2);
-emitter.on("another-event", () => console.log("Another Event"));
+// emitter.on("removable-event", listener1);
+// emitter.on("removable-event", listener2);
+// emitter.on("another-event", () => console.log("Another Event"));
 
-setInterval(() => {
-  emitter.emit("removable-event");
-  emitter.emit("another-event");
-}, 200);
+// setInterval(() => {
+//   emitter.emit("removable-event");
+//   emitter.emit("another-event");
+// }, 200);
 
-setTimeout(() => emitter.removeAllListeners("removable-event"), 500);
-setTimeout(() => emitter.removeAllListeners(), 1100);
+// setTimeout(() => emitter.removeAllListeners("removable-event"), 500);
+// setTimeout(() => emitter.removeAllListeners(), 1100);
+
+console.log("---- Error Event Handling ----");
+
+process.stdin.resume(); // Keep the Node.js process running
+
+emitter.on("error", (err)=>console.log("Error: ", err.message))
+
+emitter.emit("error", new Error("Something went wrong!")); // emit an error event without a listener
