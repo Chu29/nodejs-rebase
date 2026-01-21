@@ -94,4 +94,5 @@ try {
 } catch (error) {
   if (error.code !== "ABORT_ERR") throw error;
   console.log("canceled");
+  console.log("Abort operation was successful");
 }

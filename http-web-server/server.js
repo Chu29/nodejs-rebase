@@ -1,6 +1,9 @@
 "use strict";
 
-import { createServer } from "http";
+import * as http from "node:http";
+import * as url from "url";
+const { STATUS_CODES } = http;
+
 const PORT = process.env.PORT || 3000;
 
 const hello = `<html>
@@ -28,9 +31,28 @@ const root = `<html>
 </html>`;
 
 // create the server
-const server = createServer((req, res) => {
+const server = http.createServer((req, res) => {
   res.setHeader("Content-Type", "text/html");
-  res.end(hello);
+  if (req.method !== "GET") {
+    res.statusCode = 405;
+    res.end(STATUS_CODES[res.statusCode] + "\r\n");
+    return;
+  }
+
+  const { pathname } = url.parse(req.url);
+  if (pathname === "/") {
+    res.end(root);
+    return;
+  }    res.end(root);
+
+
+  if (pathname === "/hello") {
+    res.end(hello);
+    return;
+  }
+
+  res.statusCode = 404;
+  res.end(STATUS_CODES[res.statusCode] + "\r\n");
 });
 
 server.listen(PORT);
