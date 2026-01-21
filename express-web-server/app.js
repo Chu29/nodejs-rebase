@@ -6,6 +6,7 @@ const helloRoutes = require("./routes/hello");
 
 const app = express();
 
+// mounting the routes with the actual paths
 app.use("/", indexRoutes);
 app.use("/hello", helloRoutes);
 
@@ -13,6 +14,7 @@ app.use((req, res, next) => {
   if (req.method !== "GET") {
     next(createError(404));
   }
+  next(createError(404));
 });
 
 app.use((err, req, res, next) => {
