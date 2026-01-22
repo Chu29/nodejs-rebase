@@ -1,3 +1,8 @@
+/**
+ * This file creates an instance of express() class
+ * We consume all routes here using the use() method
+ */
+
 " use strict ";
 const express = require("express");
 const createError = require("http-errors");
@@ -13,6 +18,7 @@ app.use("/hello", helloRoutes);
 app.use((req, res, next) => {
   if (req.method !== "GET") {
     next(createError(404));
+    return;
   }
   next(createError(404));
 });
