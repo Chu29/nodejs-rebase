@@ -5,7 +5,6 @@ import { STATUS_CODES } from "node:http";
 
 import indexRouter from "./routes/index.js";
 import bicycleRouter from "./routes/bicycle.js";
-import { error } from "node:console";
 
 // create express instance
 const app = express();
